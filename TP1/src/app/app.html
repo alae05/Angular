@@ -1,0 +1,22 @@
+<!-- app.component.html -->
+<main>
+<h1>{{ titre }}</h1>
+<p>{{ description }}</p>
+<p>Version : <strong>{{ version }}</strong> — Année : {{ annee }}</p>
+<!-- Expressions Angular : -->
+<p>5 × 3 = {{ 5 * 3 }}</p>
+<p>{{ titre.toUpperCase() }}</p>
+</main>
+<main>
+<h1>{{ titre }}</h1>
+<p>{{ description }}</p>
+<app-salutation></app-salutation> <!-- composant enfant -->
+<p>Version : {{ version }} — Année : {{ annee }}</p>
+</main>
+<main>
+  <p>Prenom : {{prenom}}</p>
+  <p>Note max : {{noteMax}}</p>
+  <p>est Etudiant : {{estEtudiant}}</p>
+  <p>Moitie : {{noteMax / 2}}</p>
+</main>
+<app-profil></app-profil>
