@@ -1,0 +1,31 @@
+<div>
+    <h2>Liste des contacts ({{ Contacts.length }})</h2>
+    <p *ngIf="Contacts.length === 0">Aucun contact pour le moment</p>
+
+    <ul *ngIf="Contacts.length > 0">
+        <li *ngFor="let c of Contacts; let i = index ">
+            <span>{{ i + 1 }}</span>
+            <strong> {{ c.nom }} </strong>
+            - {{ c.email }}
+            <small *ngIf="c.telephone" > | {{ c.telephone }} </small>
+        </li>
+    </ul>
+
+    <p *ngIf="nombreAjouts > 0">
+        {{ nombreAjouts }} contact(s) ajouté(s) depuis le chargement
+    </p>
+    <small>Liste chargée à : {{ dateChargement }}</small>
+
+    <li *ngFor="let c of Contacts; let i = index">
+        {{ i+1 }}. <strong>{{ c.nom }}</strong> — {{ c.email }}
+        <button (click)="supprimer(i)">❌</button>
+    </li>
+
+    <input [(ngModel)]="recherche"
+        placeholder="🔍 Rechercher un contact...">
+    <p>{{ contactsFiltres.length }} résultat(s)</p>
+    <!-- Utiliser contactsFiltres au lieu de contacts dans *ngFor -->
+    <li *ngFor="let c of contactsFiltres; let i = index">
+    ...
+</li>
+</div>
