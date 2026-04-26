@@ -1,0 +1,7 @@
+<h1>Gestionnaire de Contacts</h1>
+<header>
+<h1>🔍 Gestionnaire de Contacts</h1>
+<span>{{ messageStatut }}</span>
+</header>
+<app-formulaire-contact (contactSauvegarde)="ajouterContact($event)" ></app-formulaire-contact>
+<app-liste-contacts [Contacts]="mesContacts" (contactSupprime)="supprimerContact($event)"></app-liste-contacts>
