@@ -1,0 +1,79 @@
+<div>
+  <h2>Contacts ({{ contacts.length }})</h2>
+
+  <button (click)="filtreActif = null">Tous ({{ contacts.length }})</button>
+  <button (click)="filtreActif = true">Actifs</button>
+  <button (click)="filtreActif = false">Inactifs</button>
+
+  @if (contactsFiltres.length === 0) {
+    <p>Aucun contact dans cette catégorie.</p>
+  }
+
+  @if (contacts.length > 10) {
+    <p>📈 Carnet bien rempli !</p>
+  } @else if (contacts.length > 0) {
+    <p>📈 {{ contacts.length }} contact(s) enregistré(s)</p>
+  } @else {
+    <p>📈 Le carnet est vide.</p>
+  }
+
+  <ul>
+    @for (c of contactsFiltres; track c.email; let i = $index, first = $first, last = $last) {
+      <li [ngClass]="{
+        'contact-actif': c.actif,
+        'contact-inactif': !c.actif,
+        'top-score': c.score >= 16,
+        'premier-item': first
+      }" [appSurvol]="c.role === 'admin' ? '#FFE0E0' : '#E0F0FF'">
+
+        <span>{{ i + 1 }}.</span>
+        <strong>{{ c.nom | uppercase }}</strong>
+        —
+        <em>{{ c.email | slice:0:20 }}</em>
+
+        @if (first) { <small>(Premier)</small> }
+        @if (last) { <small>(Dernier)</small> }
+
+        @if (c.actif) {
+          <span>✅ Actif</span>
+        } @else {
+          <span>❌ Inactif</span>
+        }
+
+        @switch (c.role) {
+          @case ('admin') { <span>🔑 Admin</span> }
+          @case ('user') { <span>👤 Utilisateur</span> }
+          @case ('guest') { <span>👁️ Visiteur</span> }
+          @default { <span>❓ Rôle inconnu</span> }
+        }
+
+        <span [ngClass]="'score-' + (c.score >= 16 ? 'excellent' : c.score >= 10 ? 'passable' : 'echec')">
+          Score : {{ c.score | number:'1.1-1' }}/20
+          ({{ c.score / 20 | percent:'1.0-0' }})
+        </span>
+
+        <span>{{ c.score | mention }}</span>
+        <span>Initiales : {{ c.nom | initiales }}</span>
+        <span>{{ today | date:'dd/MM/yyyy' }}</span>
+
+        <div appHighlight [isActive]="c.actif">
+          Élément actif qui réagit au survol
+        </div>
+
+        <button (click)="toggleActif(c.email)">Basculer actif</button>
+        <button (click)="supprimer(c.email)">Supprimer</button>
+      </li>
+    } @empty {
+      <li>Aucun résultat pour ce filtre.</li>
+    }
+  </ul>
+
+  <table>
+    @for (c of contacts; track c.email; let pair = $even) {
+      <tr [style.background]="pair ? '#F5F5F5' : '#FFFFFF'">
+        <td>{{ c.nom }}</td>
+        <td>{{ c.score }}/20</td>
+      </tr>
+    }
+  </table>
+</div>

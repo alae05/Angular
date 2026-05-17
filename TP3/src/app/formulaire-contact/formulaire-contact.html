@@ -1,0 +1,19 @@
+<div>
+  <h3>Ajouter un contact</h3>
+
+  <input [(ngModel)]="nouveau.nom" placeholder="Nom" />
+  <input [(ngModel)]="nouveau.email" placeholder="Email" />
+  <input type="number" [(ngModel)]="nouveau.score" min="0" max="20" placeholder="Score" />
+
+  <select [(ngModel)]="nouveau.role">
+    <option value="admin">Admin</option>
+    <option value="user">Utilisateur</option>
+    <option value="guest">Visiteur</option>
+  </select>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="nouveau.actif" /> Actif
+  </label>
+
+  <button (click)="soumettre()">Ajouter</button>
+</div>
